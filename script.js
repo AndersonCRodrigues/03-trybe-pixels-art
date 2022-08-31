@@ -30,12 +30,22 @@ function palette() {
 
 palette();
 
+function cleanBtn() {
+  const paletteColors = document.querySelector('#clean');
+  const btn = document.createElement('button');
+  btn.id = 'clear-board';
+  btn.innerText = 'Limpar';
+  paletteColors.appendChild(btn);
+  btn.style.marginLeft = '50px';
+}
+
 function btnRandomColor() {
   const colorPalette = document.querySelector('#color-palette');
   const buttonColor = document.createElement('button');
   buttonColor.id = 'button-random-color';
   buttonColor.innerText = 'Cores aleatórias';
   colorPalette.appendChild(buttonColor);
+  cleanBtn();
 }
 function randomColor() {
   const red = Math.floor(Math.random() * 256);
@@ -86,11 +96,22 @@ for (let i = 0; i < SelectColor.length; i += 1) {
 }
 
 function paintPixel(event) {
+  const origin = event;
   const color = document.querySelector('.selected');
-  event.target.style.background = color.style.background;
+  origin.target.style.background = color.style.background;
 }
 
 const pixel = document.querySelectorAll('.pixel');
 for (let i = 0; i < pixel.length; i += 1) {
   pixel[i].addEventListener('click', paintPixel);
 }
+
+function cleanBoard() {
+  const pixelSqr = document.querySelectorAll('.pixel');
+  for (let i = 0; i < pixelSqr.length; i += 1) {
+    pixel[i].style.background = 'white';
+  }
+}
+
+const clearBoardBtn = document.querySelector('#clear-board');
+clearBoardBtn.addEventListener('click', cleanBoard);
