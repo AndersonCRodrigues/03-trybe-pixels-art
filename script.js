@@ -84,3 +84,13 @@ const SelectColor = document.querySelectorAll('.color');
 for (let i = 0; i < SelectColor.length; i += 1) {
   SelectColor[i].addEventListener('click', addSelected);
 }
+
+function paintPixel(event) {
+  const color = document.querySelector('.selected');
+  event.target.style.background = color.style.background;
+}
+
+const pixel = document.querySelectorAll('.pixel');
+for (let i = 0; i < pixel.length; i += 1) {
+  pixel[i].addEventListener('click', paintPixel);
+}
