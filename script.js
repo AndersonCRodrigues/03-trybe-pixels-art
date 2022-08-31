@@ -30,7 +30,7 @@ btnRandomColor();
 function addRamdomColor() {
   const paletteDiv = document.querySelectorAll('.color');
   for (let i = 0; i < paletteDiv.length; i += 1) {
-    if (i === 0) { paletteDiv[0].style.background = 'back'; }
+    if (i === 0) paletteDiv[0].style.background = 'back';
     else { paletteDiv[i].style.background = randomColor(); }
   }
 }
