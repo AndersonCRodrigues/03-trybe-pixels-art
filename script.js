@@ -71,3 +71,16 @@ function pixelBoardSquare() {
 pixelBoardSquare();
 
 document.querySelectorAll('.color')[0].classList.add('selected');
+
+function addSelected(event) {
+  const color = document.querySelectorAll('.color');
+  for (let i = 0; i < color.length; i += 1) {
+    color[i].classList.remove('selected');
+  }
+  event.target.classList.add('selected');
+}
+
+const SelectColor = document.querySelectorAll('.color');
+for (let i = 0; i < SelectColor.length; i += 1) {
+  SelectColor[i].addEventListener('click', addSelected);
+}
