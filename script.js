@@ -69,3 +69,5 @@ function pixelBoardSquare() {
   }
 }
 pixelBoardSquare();
+
+document.querySelectorAll('.color')[0].classList.add('selected');
