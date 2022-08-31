@@ -58,4 +58,14 @@ function addRamdomColor() {
 const button = document.querySelector('#button-random-color');
 button.addEventListener('click', addRamdomColor);
 
-loadColor();
+window.addEventListener('load', loadColor);
+
+function pixelBoardSquare() {
+  const pixelBoard = document.querySelector('#pixel-board');
+  for (let i = 0; i < 25; i += 1) {
+    const pixel = document.createElement('div');
+    pixel.classList = 'pixel';
+    pixelBoard.appendChild(pixel);
+  }
+}
+pixelBoardSquare();
