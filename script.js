@@ -90,15 +90,17 @@ button.addEventListener('click', addRamdomColor);
 window.addEventListener('load', loadColor);
 window.addEventListener('load', loadPixelColor);
 
-function pixelBoardSquare() {
+function pixelBoardSquare(tamanho) {
   const pixelBoard = document.querySelector('#pixel-board');
-  for (let i = 0; i < 25; i += 1) {
+  const boardTamanho = (40 * tamanho) + tamanho * 2;
+  pixelBoard.style.width = `${boardTamanho}px`;
+  for (let i = 0; i < tamanho ** 2; i += 1) {
     const pixel = document.createElement('div');
     pixel.classList = 'pixel';
     pixelBoard.appendChild(pixel);
   }
 }
-pixelBoardSquare();
+pixelBoardSquare(5);
 
 document.querySelectorAll('.color')[0].classList.add('selected');
 
@@ -136,3 +138,47 @@ function cleanBoard() {
 
 const clearBoardBtn = document.querySelector('#clear-board');
 clearBoardBtn.addEventListener('click', cleanBoard);
+
+function addPixelSixeInput() {
+  const divClean = document.querySelector('#clean');
+  const pixelInput = document.createElement('input');
+  pixelInput.id = 'board-size';
+  pixelInput.min = 1;
+  pixelInput.type = 'number';
+  pixelInput.style.marginLeft = '5px';
+  pixelInput.style.width = '105px';
+  divClean.appendChild(pixelInput);
+}
+
+function addPixelSizeBtn() {
+  const divClean = document.querySelector('#clean');
+  const pixelSizeBtn = document.createElement('button');
+  pixelSizeBtn.id = 'generate-board';
+  pixelSizeBtn.innerText = 'VQV';
+  pixelSizeBtn.style.marginLeft = '5px';
+  divClean.appendChild(pixelSizeBtn);
+}
+
+function deletePixel() {
+  const board = document.querySelector('#pixel-board');
+  let child = board.firstChild;
+  while (child) {
+    board.removeChild(child);
+    child = board.firstChild;
+  }
+}
+
+function resizeBoard() {
+  const input = document.querySelector('#board-size');
+  if (input.value >= 1) {
+    deletePixel();
+    pixelBoardSquare(input.value);
+    localStorage.removeItem('pixelBoard');
+  } else alert('Board inválido!');
+}
+
+addPixelSixeInput();
+addPixelSizeBtn();
+
+const sizeBtn = document.querySelector('#generate-board');
+sizeBtn.addEventListener('click', resizeBoard);
