@@ -37,6 +37,10 @@ function updatePixelColor() {
   } loadPixelColor();
 }
 
+function saveBoard(tamanho) {
+  localStorage.setItem('boardSize', JSON.stringify(tamanho));
+}
+
 function palette() {
   const colorPalette = document.querySelector('#color-palette');
   for (let i = 0; i < vetor.length; i += 1) {
@@ -87,9 +91,6 @@ function addRamdomColor() {
 const button = document.querySelector('#button-random-color');
 button.addEventListener('click', addRamdomColor);
 
-window.addEventListener('load', loadColor);
-window.addEventListener('load', loadPixelColor);
-
 function pixelBoardSquare(tamanho) {
   const pixelBoard = document.querySelector('#pixel-board');
   const boardTamanho = (40 * tamanho) + tamanho * 2;
@@ -100,6 +101,7 @@ function pixelBoardSquare(tamanho) {
     pixelBoard.appendChild(pixel);
   }
 }
+
 pixelBoardSquare(5);
 
 document.querySelectorAll('.color')[0].classList.add('selected');
@@ -168,13 +170,29 @@ function deletePixel() {
   }
 }
 
+function testaTamanho(number) {
+  if (number < 5) return 5;
+  if (number > 50) return 50;
+  return number;
+}
+
 function resizeBoard() {
   const input = document.querySelector('#board-size');
   if (input.value >= 1) {
     deletePixel();
-    pixelBoardSquare(input.value);
+    testaTamanho(input.value);
+    pixelBoardSquare(testaTamanho(input.value));
     localStorage.removeItem('pixelBoard');
+    saveBoard(input.value);
   } else alert('Board inválido!');
+}
+
+function loadBoard() {
+  if (localStorage.boardSize) {
+    const tamanho = JSON.parse(localStorage.getItem('boardSize'));
+    deletePixel();
+    pixelBoardSquare(tamanho);
+  }
 }
 
 addPixelSixeInput();
@@ -182,3 +200,7 @@ addPixelSizeBtn();
 
 const sizeBtn = document.querySelector('#generate-board');
 sizeBtn.addEventListener('click', resizeBoard);
+
+window.addEventListener('load', loadColor);
+window.addEventListener('load', loadPixelColor);
+window.addEventListener('load', loadBoard);
