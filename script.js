@@ -18,6 +18,25 @@ function updateColor() {
   } loadColor();
 }
 
+function loadPixelColor() {
+  if (localStorage.pixelBoard) {
+    const pixels = document.querySelectorAll('.pixel');
+    const recoverPixelColor = JSON.parse(localStorage.getItem('pixelBoard'));
+    for (let i = 0; i < pixels.length; i += 1) {
+      pixels[i].style.background = recoverPixelColor[i];
+    }
+  }
+}
+
+function updatePixelColor() {
+  const pixels = document.querySelectorAll('.pixel');
+  const pixelColor = Array(25);
+  for (let i = 0; i < pixels.length; i += 1) {
+    pixelColor[i] = pixels[i].style.background;
+    localStorage.setItem('pixelBoard', JSON.stringify(pixelColor));
+  } loadPixelColor();
+}
+
 function palette() {
   const colorPalette = document.querySelector('#color-palette');
   for (let i = 0; i < vetor.length; i += 1) {
@@ -69,6 +88,7 @@ const button = document.querySelector('#button-random-color');
 button.addEventListener('click', addRamdomColor);
 
 window.addEventListener('load', loadColor);
+window.addEventListener('load', loadPixelColor);
 
 function pixelBoardSquare() {
   const pixelBoard = document.querySelector('#pixel-board');
@@ -99,6 +119,7 @@ function paintPixel(event) {
   const origin = event;
   const color = document.querySelector('.selected');
   origin.target.style.background = color.style.background;
+  updatePixelColor();
 }
 
 const pixel = document.querySelectorAll('.pixel');
